@@ -32,9 +32,13 @@ def initialize_app(flask_app):
 
     :param flask_app: instance of Flask() class
     '''
+    blueprint = Blueprint('tf_api', __name__, url_prefix='/tf_api')
+
     configure_app(flask_app)
-    api.init_app(app)
+    api.init_app(blueprint)
     api.add_namespace(gan_client_namespace)
+
+    flask_app.register_blueprint(blueprint)
 
 
 def main():

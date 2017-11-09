@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 # create Flask-RestPlus API
 api = Api(version='1.0',
-          title='TF Serving REST Api',
+          title='TensorFlow Serving REST Api',
           description='RESTful API wrapper for TensorFlow Serving client')
 
 

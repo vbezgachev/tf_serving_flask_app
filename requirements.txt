@@ -1,4 +1,4 @@
-Flask=0.12.2
-flask-restplus=0.10.1
-grpcio=1.7.0
-tensorflow=1.4.0
+Flask==0.12.2
+flask-restplus==0.10.1
+grpcio==1.7.0
+tensorflow==1.4.0
