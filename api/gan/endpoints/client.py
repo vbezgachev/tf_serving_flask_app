@@ -26,12 +26,21 @@ upload_parser.add_argument(UPLOAD_KEY,
 class GanPrediction(Resource):
     @ns.doc('Predict the house number on the image using GAN model', responses={
         200: "Success",
-        400: "Unexpected error"
+        400: "Bad request",
+        500: "Internal server error",
     })
     @ns.expect(upload_parser)
     def post(self):
-        image_file = request.files[UPLOAD_KEY]
-        image = io.BytesIO(image_file.read())
-        result = make_prediction(image)
-        log.info('Prediction on the image gave %d', result)
-        return {'prediction_result': result}, 200
+        try:
+            image_file = request.files[UPLOAD_KEY]
+            image = io.BytesIO(image_file.read())
+        except Exception as inst:
+            return {'message': 'something wrong with incoming request. Original message: {}'.format(inst)}, 400
+
+        try:
+            result = make_prediction(image.read())
+            log.info('Prediction on the image gave %s', result)
+            return {'prediction_result': 1}, 200
+
+        except Exception as inst:
+            return {'message': 'internal error: {}'.format(inst)}, 500
