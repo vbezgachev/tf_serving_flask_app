@@ -1,5 +1,0 @@
-1. Create application hosted by Flask server
-2. POST request with image
-3. Call TesnsorFlow Serving client for prediction
-4. Create a Docker container with Flask application in it
-5. Create docker-compose.yaml with two images: Flask application, TensorFlow Server

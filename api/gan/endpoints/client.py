@@ -24,7 +24,7 @@ upload_parser.add_argument(UPLOAD_KEY,
 @ns.route('/prediction')
 class GanPrediction(Resource):
     @ns.doc(description='Predict the house number on the image using GAN model. ' +
-            'Return 3 most probable numbers with their probabilities',
+            'Return 3 most probable digits with their probabilities',
             responses={
                 200: "Success",
                 400: "Bad request",
