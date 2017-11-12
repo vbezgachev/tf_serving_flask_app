@@ -4,6 +4,7 @@ import os
 import operator
 import logging
 import settings
+import utils
 import tensorflow as tf
 
 # Communication to TensorFlow server via gRPC
@@ -20,23 +21,8 @@ def __get_tf_server_connection_params__():
 
     :return: Tuple of TF server name and server port
     '''
-    # try getting parameters from environment variables
-    try:
-        server_name = os.environ['TF_SERVER_NAME']
-    except:
-        server_name = ''
-    
-    try:
-        server_port = os.environ['TF_SERVER_PORT']
-    except:
-        server_port = ''
-
-    # if the parameters do not exist as environment variables, use default
-    if server_name == '':
-        server_name = settings.DEFAULT_TF_SERVER_NAME
-
-    if server_port == '':
-        server_port = settings.DEFAULT_TF_SERVER_PORT
+    server_name = utils.get_env_var_setting('TF_SERVER_NAME', settings.DEFAULT_TF_SERVER_NAME)
+    server_port = utils.get_env_var_setting('TF_SERVER_PORT', settings.DEFAULT_TF_SERVER_PORT)
 
     return server_name, server_port
 

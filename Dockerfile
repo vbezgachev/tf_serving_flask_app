@@ -10,8 +10,5 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-ENV TF_SERVER_NAME='172.17.0.2'
-ENV TF_SERVER_PORT='9000'
-
 ENTRYPOINT ["python"]
 CMD ["app.py"]

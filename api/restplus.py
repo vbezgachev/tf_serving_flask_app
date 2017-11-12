@@ -25,5 +25,5 @@ def default_error_handler(error):
     message = 'Unexpected error occured: {}'.format(error.specific)
     log.exception(message)
 
-    if not settings.FLASK_DEBUG:
+    if not settings.DEFAULT_FLASK_DEBUG:
         return {'message': message}, 500

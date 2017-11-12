@@ -1,4 +1,4 @@
 ## TensorFlow Serving client hosted by Flask web framework
 This is an extension of my [TensorFlow Serving test project](https://github.com/Vetal1977/tf_serving_example). It introduces a Flask web server that hosts TensorFlow serving client. It receives REST requests to predict [Street View House Numbers](http://ufldl.stanford.edu/housenumbers/), translates them into protobufs and sends to a TensorFlow server via gRPC for prediction by GAN model.  
 Mentioned GAN model is trained using [semi-supervised learning](https://en.wikipedia.org/wiki/Semi-supervised_learning) technique and bases on the model taught at [Udacity Deep Learning Foundations](https://www.udacity.com/course/deep-learning-nanodegree-foundation--nd101) course. The original Jupyter Notebook can be found at [GitHub](https://github.com/udacity/deep-learning/tree/master/semi-supervised).  
-More details on the project can be found at my [blog](https://medium.com/@vitaly.bezgachev/).
+More details on the project can be found at my [blog](https://medium.com/@vitaly.bezgachev/creating-restful-api-to-tensorflow-models-c5c57b692c10).
