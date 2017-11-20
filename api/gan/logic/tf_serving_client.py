@@ -74,7 +74,7 @@ def __make_prediction_and_prepare_results__(stub, request):
         value_dict.items(),
         key=operator.itemgetter(1),
         reverse=True)
-    
+
     return sorted_values[0:3]
 
 def make_prediction(image):
