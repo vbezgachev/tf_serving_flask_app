@@ -4,11 +4,12 @@ import settings
 import utils
 from flask import Flask, Blueprint
 from flask_restplus import Resource, Api
+
 from api.restplus import api
 from api.gan.endpoints.client import ns as gan_client_namespace
 
 # create Flask application
-app = Flask(__name__)
+application = Flask(__name__)
 
 # load logging confoguration and create log object
 logging.config.fileConfig('logging.conf')
@@ -23,13 +24,13 @@ def __get_flask_server_params__():
     '''
     server_name = utils.get_env_var_setting('FLASK_SERVER_NAME', settings.DEFAULT_FLASK_SERVER_NAME)
     server_port = utils.get_env_var_setting('FLASK_SERVER_PORT', settings.DEFAULT_FLASK_SERVER_PORT)
-
     flask_debug = utils.get_env_var_setting('FLASK_DEBUG', settings.DEFAULT_FLASK_DEBUG)
+
     flask_debug = True if flask_debug == '1' else False
 
     return server_name, server_port, flask_debug
 
-def configure_app(flask_app, server_name, server_port):
+def configure_app(flask_app):
     '''
     Configure Flask application
 
@@ -40,7 +41,7 @@ def configure_app(flask_app, server_name, server_port):
     flask_app.config['RESTPLUS_MASK_SWAGGER'] = settings.RESTPLUS_MASK_SWAGGER
     flask_app.config['ERROR_404_HELP'] = settings.RESTPLUS_ERROR_404_HELP
 
-def initialize_app(flask_app, server_name, server_port):
+def initialize_app(flask_app):
     '''
     Initialize Flask application with Flask-RestPlus
 
@@ -48,20 +49,14 @@ def initialize_app(flask_app, server_name, server_port):
     '''
     blueprint = Blueprint('tf_api', __name__, url_prefix='/tf_api')
 
-    configure_app(flask_app, server_name, server_port)
+    configure_app(flask_app)
     api.init_app(blueprint)
     api.add_namespace(gan_client_namespace)
 
     flask_app.register_blueprint(blueprint)
 
 
-def main():
-    server_name, server_port, flask_debug = __get_flask_server_params__()
-    initialize_app(app, server_name, server_port)
-    log.info(
-        '>>>>> Starting TF Serving client at http://{}/ >>>>>'.format(app.config['SERVER_NAME'])
-        )
-    app.run(debug=flask_debug, host=server_name, port=server_port)
-
 if __name__ == '__main__':
-    main()
+    server_name, server_port, flask_debug = __get_flask_server_params__()
+    initialize_app(application)
+    application.run(debug=flask_debug, host=server_name, port=server_port)

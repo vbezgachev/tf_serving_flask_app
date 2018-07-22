@@ -1,7 +1,7 @@
 # Flask settings
 DEFAULT_FLASK_SERVER_NAME = '0.0.0.0'
 DEFAULT_FLASK_SERVER_PORT = '5001'
-DEFAULT_FLASK_DEBUG = True  # Do not use debug mode in production
+DEFAULT_FLASK_DEBUG = '1'  # Do not use debug mode in production
 
 # Flask-Restplus settings
 RESTPLUS_SWAGGER_UI_DOC_EXPANSION = 'list'

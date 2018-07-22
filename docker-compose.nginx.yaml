@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  tf-serving-server:
+    container_name: tf-serving-server
+    image: $USER/tensorflow-serving-gan:v1.0
+    command: /serving/bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server --port=9000 --model_name=gan --model_base_path=/serving/gan-export &> gan_log &
+    networks:
+      - tf_serving
+    ports:
+      - "9000:9000"
+
+  tf-serving-client:
+    container_name: tf-serving-client
+    build:
+      context: .
+      dockerfile: Dockerfile.uwsgi
+    networks:
+      - tf_serving
+    expose:
+      - "3333"
+    environment:
+      - TF_SERVER_NAME=tf-serving-server
+      - TF_SERVER_PORT=9000
+    depends_on:
+      - tf-serving-server
+
+  nginx:
+    image: "nginx:1.15.1"
+    container_name: tf-serving-client-nginx
+    networks:
+      - tf_serving
+    ports:
+      - "80:80"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    links:
+      - tf-serving-client:uwsgi
+
+networks:
+  tf_serving:
+    driver: bridge
