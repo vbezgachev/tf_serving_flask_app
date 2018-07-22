@@ -35,7 +35,6 @@ def configure_app(flask_app, server_name, server_port):
 
     :param flask_app: instance of Flask() class
     '''
-    flask_app.config['SERVER_NAME'] = server_name + ':' + server_port
     flask_app.config['SWAGGER_UI_DOC_EXPANSION'] = settings.RESTPLUS_SWAGGER_UI_DOC_EXPANSION
     flask_app.config['RESTPLUS_VALIDATE'] = settings.RESTPLUS_VALIDATE
     flask_app.config['RESTPLUS_MASK_SWAGGER'] = settings.RESTPLUS_MASK_SWAGGER
@@ -62,7 +61,7 @@ def main():
     log.info(
         '>>>>> Starting TF Serving client at http://{}/ >>>>>'.format(app.config['SERVER_NAME'])
         )
-    app.run(debug=flask_debug, host=server_name)
+    app.run(debug=flask_debug, host=server_name, port=server_port)
 
 if __name__ == '__main__':
     main()
