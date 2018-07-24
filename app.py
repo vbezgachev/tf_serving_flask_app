@@ -23,7 +23,7 @@ def __get_flask_server_params__():
     :return: Tripple of server name, server port and debug settings
     '''
     server_name = utils.get_env_var_setting('FLASK_SERVER_NAME', settings.DEFAULT_FLASK_SERVER_NAME)
-    server_port = utils.get_env_var_setting('FLASK_SERVER_PORT', settings.DEFAULT_FLASK_SERVER_PORT)
+    server_port = int(utils.get_env_var_setting('FLASK_SERVER_PORT', settings.DEFAULT_FLASK_SERVER_PORT))
     flask_debug = utils.get_env_var_setting('FLASK_DEBUG', settings.DEFAULT_FLASK_DEBUG)
 
     flask_debug = True if flask_debug == '1' else False
